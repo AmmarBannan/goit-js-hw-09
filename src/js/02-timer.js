@@ -4,7 +4,7 @@ import "flatpickr/dist/flatpickr.min.css";
 const flatpickr = require("flatpickr");
 
 let selectedDate=null;
-const date=document.querySelector("#datetime-picker");
+const dateInp=document.querySelector("#datetime-picker");
 const alert=document.querySelector(".alert")
 let timerId =null;
 
@@ -25,7 +25,7 @@ function isInTheFuture(selectedDate) {
     selectedDate.getTime() < today?Notify.failure("please choose a date from the future"):timeLeft(selectedDate,today)
 }
 // alert.classList.remove("hide")
-flatpickr(date, options);
+flatpickr(dateInp, options);
 
 
 const timeLeft=(date1,date2)=>{
