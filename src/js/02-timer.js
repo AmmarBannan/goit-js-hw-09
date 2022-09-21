@@ -25,7 +25,7 @@ function isInTheFuture(selectedDate) {
     selectedDate.getTime() < today?Notify.failure("please choose a date from the future"):timeLeft(selectedDate,today)
 }
 // alert.classList.remove("hide")
-flatpickr('#datetime-picker', { ...options });
+
 
 
 const timeLeft=(date1,date2)=>{
@@ -73,3 +73,6 @@ const timeLeft=(date1,date2)=>{
 
     }, 1000);
 }
+
+
+flatpickr('#datetime-picker', { ...options });
