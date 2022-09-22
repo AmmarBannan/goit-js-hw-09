@@ -29,8 +29,7 @@ const options = {
 
 start.addEventListener("click",()=>{
     isInTheFuture(selectedDate);
-    start.setAttribute("disabled","");
-    dateInp.setAttribute("disabled","");
+    
 });
 
 function isInTheFuture(selectedDate) {
@@ -43,7 +42,8 @@ function isInTheFuture(selectedDate) {
     else{
         timeLeft(selectedDate,today);
         start.removeAttribute("disabled","");
-        dateInp.addEventListener("focus",(e)=>{e.target.value=""});
+        start.setAttribute("disabled","");
+        dateInp.setAttribute("disabled","");
     };
 }
 // alert.classList.remove("hide")
