@@ -6,7 +6,6 @@ let selectedDate=null;
 const dateInp=document.querySelector("#datetime-picker");
 let timerId =null;
 let start=document.querySelector("[data-start]");
-let target=document.querySelector(".target")
 
 
 
@@ -16,10 +15,11 @@ const options = {
     time_24hr: true,
     defaultDate: new Date(),
     minuteIncrement: 1,
-    onOpen(){clearInterval(timerId);start.removeAttribute("disabled","");},
+    onOpen(){},
     onClose(selectedDates) {
+        clearInterval(timerId);
         selectedDate=selectedDates[0];
-        isInTheFuture(selectedDate);
+        
         if(dateInp.value==""){
             start.setAttribute("disabled","");
             Notify.warning("date cant be empty");
@@ -27,17 +27,20 @@ const options = {
     },
 };
 
+start.addEventListener("click",()=>{
+    isInTheFuture(selectedDate);
+    start.setAttribute("disabled","");
+    dateInp.setAttribute("disabled","");
+});
+
 function isInTheFuture(selectedDate) {
     const today = Date.now();
     if(selectedDate.getTime() < today){
         Notify.failure("please choose a date from the future");
-        start.setAttribute("disabled","");
         clearInterval(timerId);
         
     }
     else{
-        
-        target.innerHTML=selectedDate.toLocaleString();
         timeLeft(selectedDate,today);
         start.removeAttribute("disabled","");
         dateInp.addEventListener("focus",(e)=>{e.target.value=""});
