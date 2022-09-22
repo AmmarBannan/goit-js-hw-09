@@ -5,6 +5,8 @@ const body = document.querySelector("body");
 let timerId = null;
 
 startBtn.addEventListener("click", () => {
+  startBtn.setAttribute("disabled","")
+  stopBtn.removeAttribute("disabled","")
   timerId = setInterval(() => {
         const color = getRangomColor();
         body.style.backgroundColor = color;
@@ -14,6 +16,8 @@ startBtn.addEventListener("click", () => {
 
 
 stopBtn.addEventListener("click", () => {
+  startBtn.removeAttribute("disabled","")
+  stopBtn.setAttribute("disabled","")
   clearInterval(timerId);
   console.log("stop");
 });

@@ -28,6 +28,8 @@ const submitHandler = e => {
   stepInp = Number(step.value);
   amountInp = Number(amount.value);
 
+  if(delayInp<0 || stepInp<0 || amountInp<0){Notify.warning("NO negative number!");return}
+
   for (let i = 1; i <= amountInp; i++) {
     createPromise(i, delayInp)
       .then(({ position, delay }) => {

@@ -1,28 +1,47 @@
 import flatpickr from "flatpickr";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import "flatpickr/dist/flatpickr.min.css";
-const flatpickr = require("flatpickr");
 
 let selectedDate=null;
 const dateInp=document.querySelector("#datetime-picker");
-const alert=document.querySelector(".alert")
 let timerId =null;
+let start=document.querySelector("[data-start]");
+let target=document.querySelector(".target")
+
+
+
 
 const options = {
     enableTime: true,
     time_24hr: true,
     defaultDate: new Date(),
     minuteIncrement: 1,
-    onOpen(){clearInterval(timerId);},
+    onOpen(){clearInterval(timerId);start.removeAttribute("disabled","");},
     onClose(selectedDates) {
         selectedDate=selectedDates[0];
         isInTheFuture(selectedDate);
+        if(dateInp.value==""){
+            start.setAttribute("disabled","");
+            Notify.warning("date cant be empty");
+        }
     },
 };
 
 function isInTheFuture(selectedDate) {
     const today = Date.now();
-    selectedDate.getTime() < today?Notify.failure("please choose a date from the future"):timeLeft(selectedDate,today)
+    if(selectedDate.getTime() < today){
+        Notify.failure("please choose a date from the future");
+        start.setAttribute("disabled","");
+        clearInterval(timerId);
+        
+    }
+    else{
+        
+        target.innerHTML=selectedDate.toLocaleString();
+        timeLeft(selectedDate,today);
+        start.removeAttribute("disabled","");
+        dateInp.addEventListener("focus",(e)=>{e.target.value=""});
+    };
 }
 // alert.classList.remove("hide")
 
@@ -75,4 +94,4 @@ const timeLeft=(date1,date2)=>{
 }
 
 
-flatpickr('#datetime-picker', { ...options });
+flatpickr('#datetime-picker', options);
